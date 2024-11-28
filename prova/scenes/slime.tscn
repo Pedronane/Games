@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://618xfk6y3kk7"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_5hhc4"]
+[ext_resource type="Texture2D" uid="uid://bl6nut4pvix1d" path="res://assets/sprites/slime_green.png" id="1_p02gr"]
+[ext_resource type="PackedScene" uid="uid://drforuwgu8an6" path="res://scenes/killzone.tscn" id="2_0qxwf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04man"]
+atlas = ExtResource("1_p02gr")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmegl"]
+atlas = ExtResource("1_p02gr")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrle8"]
+atlas = ExtResource("1_p02gr")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7klmq"]
+atlas = ExtResource("1_p02gr")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yd135"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04man")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmegl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrle8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7klmq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02hxg"]
+size = Vector2(14, 13)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_5hhc4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yd135")
+frame_progress = 0.063972
+
+[node name="Killzone" parent="." instance=ExtResource("2_0qxwf")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_02hxg")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(11, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(-11, 0)
