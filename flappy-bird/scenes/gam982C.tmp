@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cna3tu0de24l"]
+
+[ext_resource type="Texture2D" uid="uid://cyo6vuhsawod7" path="res://assets/ground.png" id="1_85ixc"]
+[ext_resource type="PackedScene" uid="uid://dejmkswmxaf0k" path="res://scenes/bird.tscn" id="1_tas85"]
+[ext_resource type="Script" path="res://scripts/pipe_spawner.gd" id="3_m7vvw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mg1ag"]
+size = Vector2(160, 32)
+
+[node name="Game" type="Node2D"]
+position = Vector2(2, 0)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(-1, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-1, 29)
+shape = SubResource("RectangleShape2D_mg1ag")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+position = Vector2(-1, 29)
+texture = ExtResource("1_85ixc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+limit_top = -75
+limit_bottom = 75
+
+[node name="bird" parent="." instance=ExtResource("1_tas85")]
+
+[node name="PipeSpawner" type="Node2D" parent="."]
+position = Vector2(51, -35)
+script = ExtResource("3_m7vvw")
+
+[node name="Timer" type="Timer" parent="PipeSpawner"]
+autostart = true
+
+[connection signal="timeout" from="PipeSpawner/Timer" to="PipeSpawner" method="_on_timer_timeout"]
